@@ -1,2 +1,2 @@
 web:
-    fake build --target web
+	fake build --target run
