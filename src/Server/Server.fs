@@ -6,7 +6,7 @@ let tryGetEnv = System.Environment.GetEnvironmentVariable >> function null | "" 
 
 let publicPath = Path.GetFullPath "../Client/public"
 
-let port = "PORT" |> tryGetEnv |> Option.map uint16 |> Option.defaultValue 8085us
+let port = "PORT" |> tryGetEnv |> Option.map uint16 |> Option.defaultValue 5000us
 
 
 let webApp = router {
