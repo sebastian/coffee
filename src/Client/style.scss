@@ -1,0 +1,82 @@
+@import 'third-party/normalize.css';
+@import 'third-party/skeleton.css';
+
+body {
+    background-color: black;
+    color: white;
+    margin: 0;
+    padding: 0;
+    font-size: xx-large;
+}
+
+$margin: 30px;
+
+#coffee-app {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto 1fr;
+    grid-template-areas:
+        "top"
+        "content"
+        "bottom";
+}
+
+button {
+    background-color: white;
+    color: black;
+}
+
+.finished, .error, .start, .brewing {
+    padding: $margin;
+    grid-area: content;
+    text-align: center;
+}
+
+.start {
+    .amount-coffee {
+        grid-template: 1fr auto 1fr;
+
+        button {
+            width: 100%;
+            grid-column: 2;
+        }
+    }
+}
+
+.brewing {
+    .state {
+        margin-left: -$margin;
+        margin-right: -$margin;
+        padding: 10px;
+        border-bottom: 0.5rem solid darkgray;
+    }
+    .completed {
+        background-color: grey;
+    }
+    .ongoing {
+        background-color: white;
+        color: black;
+        display: grid;
+        grid-template-columns: 40% 60%;
+        grid-template-areas: "time" "water";
+        font-size: 2rem;
+        padding: 20px;
+
+        .time {
+            grid-area:  "time";
+            text-align: left;
+        }
+
+        .water {
+            grid-area:  "water";
+            text-align: right;
+        }
+    }
+    .pending {
+        background-color: black;
+        border-bottom: 0.5rem solid white;
+    }
+}
