@@ -2,15 +2,9 @@ module Client
 
 open Elmish
 open Elmish.React
-
 open Fable.Helpers.React
 open Fable.Helpers.React.Props
-open Fable.PowerPack.Fetch
-open Elmish
-open Fable.Helpers.React
 open Fable.PowerPack
-
-open Shared
 
 type GramsOfCoffee = int
 
@@ -37,7 +31,7 @@ type Model
 let init () : Model * Cmd<Msg> =
     NotStarted, Cmd.none
 
-let ticksPerSecond = 10
+let ticksPerSecond = 1
 let secondsToTicks seconds = seconds * ticksPerSecond
 
 let currentCycle brewingModel = brewingModel.CurrentTick / brewingModel.TicksPerCycle + 1
@@ -46,7 +40,8 @@ let gramsOfWaterPerGramOfCoffee = 3
 
 let secondsRemaining brewingModel =
     let timePerCycle = brewingModel.TicksPerCycle / ticksPerSecond
-    timePerCycle - (brewingModel.CurrentTick / currentCycle brewingModel) / ticksPerSecond
+    let ticksAtEndOfCycle = (currentCycle brewingModel) * brewingModel.TicksPerCycle
+    (ticksAtEndOfCycle - brewingModel.CurrentTick) / ticksPerSecond
 
 let waterPerCycle brewingModel =
     gramsOfWaterPerGramOfCoffee * brewingModel.GramsOfCoffee
