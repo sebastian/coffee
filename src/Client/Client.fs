@@ -28,14 +28,20 @@ type Model
     | Broken of string
 
 let init () : Model * Cmd<Msg> =
-    NotStarted, Cmd.none
+    // NotStarted, Cmd.none
+    Brewing {TicksPerCycle = 100; CurrentTick = 250; GramsOfCoffee = 20}, Cmd.none
 
-let ticksPerSecond = 1
+let ticksPerSecond = 20
 let secondsToTicks seconds = seconds * ticksPerSecond
 
 let numCycles = 6
 
 let currentCycle brewingModel = brewingModel.CurrentTick / brewingModel.TicksPerCycle + 1
+
+let cyclePercentComplete brewingModel =
+    let ticksAtEndOfCycle = (currentCycle brewingModel) * brewingModel.TicksPerCycle
+    let ticksIntoCycle = brewingModel.TicksPerCycle - ticksAtEndOfCycle + brewingModel.CurrentTick
+    (double ticksIntoCycle * 100.0) / double brewingModel.TicksPerCycle
 
 let gramsOfWaterPerGramOfCoffee = 3
 
@@ -115,25 +121,29 @@ let renderBrewing brewingState dispatch =
     let renderCycle =
         function
         | i when i < currentCycle ->
-            div [ClassName "state completed"] []
+            div [ClassName <| "state completed " + (sprintf "state%i" i)] []
         | i when i = currentCycle ->
-            div [ClassName "state ongoing"] [
-                span [ClassName "time"] [
-                    str <| sprintf "%is remaining" (secondsRemaining brewingState)
-                ]
-                span [ClassName "water"] [
-                    str <| sprintf "Pour %ig water to a total of %ig" (waterPerCycle brewingState) (waterLimitForCycle brewingState)
-                ]
+            div [ClassName <| "state ongoing " + (sprintf "state%i" i)] [
+                div [ClassName "progress"; Style [Width (sprintf "%f%%" (cyclePercentComplete brewingState))]] []
             ]
-        | _i ->
-            div [ClassName "state pending"] []
+        | i ->
+            div [ClassName <| "state pending " + (sprintf "state%i" i)] []
 
     div [ClassName "brewing"] [
-        h1 [] [str "Brew!"]
+        div [ClassName "info-box"] [
+            div [ClassName "time"] [
+                str <| sprintf "%is" (secondsRemaining brewingState)
+            ]
+            div [ClassName "water"] [
+                str <| sprintf "Pour %ig water to a total of %ig" (waterPerCycle brewingState) (waterLimitForCycle brewingState)
+            ]
+            div [ClassName "reset-button"] [
+                button [OnClick (fun _ -> dispatch Reset)] [str "Reset"]
+            ]
+        ]
         div [ClassName "states"]
             ([1 .. numCycles]
             |> List.map renderCycle)
-        button [OnClick (fun _ -> dispatch Reset)] [str "Reset"]
     ]
 
 let view (model : Model) (dispatch : Msg -> unit) =

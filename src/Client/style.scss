@@ -1,6 +1,8 @@
 @import 'normalize';
 @import 'skeleton';
 
+$margin: 30px;
+
 body {
     background-color: black;
     color: white;
@@ -8,8 +10,6 @@ body {
     padding: 0;
     font-size: xx-large;
 }
-
-$margin: 30px;
 
 #coffee-app {
     height: 100%;
@@ -29,7 +29,7 @@ button {
     color: black;
 }
 
-.finished, .error, .start, .brewing {
+.finished, .error, .start {
     padding: $margin;
     grid-area: content;
     text-align: center;
@@ -47,36 +47,83 @@ button {
 }
 
 .brewing {
-    .state {
-        margin-left: -$margin;
-        margin-right: -$margin;
-        padding: 10px;
-        border-bottom: 0.5rem solid darkgray;
-    }
-    .completed {
-        background-color: grey;
-    }
-    .ongoing {
-        background-color: white;
-        color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "info-box"
+        "states";
+
+    .info-box {
+        grid-area: "info-box";
         display: grid;
-        grid-template-columns: 40% 60%;
-        grid-template-areas: "time" "water";
-        font-size: 2rem;
-        padding: 20px;
+        grid-template-columns: auto auto;
+        grid-template-rows: auto auto;
+        padding: $margin;
+        align-items: center;
 
         .time {
-            grid-area:  "time";
-            text-align: left;
+            grid-column: 1;
+            grid-row: 1;
+            border-right: 2px solid white;
+            font-size: 2em;
+            padding-right: $margin;
         }
-
         .water {
-            grid-area:  "water";
-            text-align: right;
+            grid-column: 2;
+            grid-row: 1;
+            padding-left: $margin;
+            font-size: 0.5em;
+        }
+        .reset-button {
+            button {
+                grid-row: 1;
+                grid-column: 1;
+            }
+        }
+    }
+
+    .states {
+        grid-area: states;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-areas:
+            "state1"
+            "state2"
+            "state3"
+            "state4"
+            "state5"
+            "state6";
+    }
+
+    .state1 {grid-area: "state1"}
+    .state2 {grid-area: "state2"}
+    .state3 {grid-area: "state3"}
+    .state4 {grid-area: "state4"}
+    .state5 {grid-area: "state5"}
+    .state6 {grid-area: "state6"}
+
+    .state {
+        border-bottom: 1px solid darkgray;
+        grid-column: 1;
+
+    }
+    .completed {
+        background-color: white;
+    }
+    .ongoing {
+        .progress {
+            background-color: white;
+            height: 100%;
         }
     }
     .pending {
         background-color: black;
-        border-bottom: 0.5rem solid white;
     }
 }
