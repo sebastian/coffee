@@ -28,8 +28,7 @@ type Model
     | Broken of string
 
 let init () : Model * Cmd<Msg> =
-    // NotStarted, Cmd.none
-    Brewing {TicksPerCycle = 100; CurrentTick = 250; GramsOfCoffee = 20}, Cmd.none
+    NotStarted, Cmd.none
 
 let ticksPerSecond = 20
 let secondsToTicks seconds = seconds * ticksPerSecond
