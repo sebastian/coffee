@@ -16,7 +16,6 @@ type Msg
     | Reset
 
 type BrewingModel = {
-    NumCycles: int
     TicksPerCycle: int
     CurrentTick: int
     GramsOfCoffee: GramsOfCoffee
@@ -33,6 +32,8 @@ let init () : Model * Cmd<Msg> =
 
 let ticksPerSecond = 1
 let secondsToTicks seconds = seconds * ticksPerSecond
+
+let numCycles = 6
 
 let currentCycle brewingModel = brewingModel.CurrentTick / brewingModel.TicksPerCycle + 1
 
@@ -60,7 +61,6 @@ let update (msg : Msg) (currentModel : Model) : Model * Cmd<Msg> =
     match msg with
     | StartBrewing gramsOfCoffee ->
         let nextModel = Brewing {
-            NumCycles = 6
             TicksPerCycle = secondsToTicks 45
             CurrentTick = 0
             GramsOfCoffee = gramsOfCoffee
@@ -71,7 +71,7 @@ let update (msg : Msg) (currentModel : Model) : Model * Cmd<Msg> =
         | Brewing state ->
             let updatedState = {state with CurrentTick = state.CurrentTick + 1}
             let nextCommand =
-                if currentCycle updatedState > updatedState.NumCycles
+                if currentCycle updatedState > numCycles
                 then Cmd.ofMsg BrewingDone
                 else cmdForTick
             Brewing updatedState, nextCommand
@@ -131,7 +131,7 @@ let renderBrewing brewingState dispatch =
     div [ClassName "brewing"] [
         h1 [] [str "Brew!"]
         div [ClassName "states"]
-            ([1 .. brewingState.NumCycles]
+            ([1 .. numCycles]
             |> List.map renderCycle)
         button [OnClick (fun _ -> dispatch Reset)] [str "Reset"]
     ]
