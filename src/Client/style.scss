@@ -63,7 +63,7 @@ button {
     .info-box {
         grid-area: "info-box";
         display: grid;
-        grid-template-columns: auto auto;
+        grid-template-columns: 1fr 2fr;
         grid-template-rows: auto auto;
         padding: $margin;
         align-items: center;
