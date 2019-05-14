@@ -134,10 +134,10 @@ let renderBrewing brewingState dispatch =
                 str <| sprintf "%is" (secondsRemaining brewingState)
             ]
             div [ClassName "water"] [
-                str <| sprintf "Pour %ig water to a total of %ig" (waterPerCycle brewingState) (waterLimitForCycle brewingState)
-            ]
-            div [ClassName "reset-button"] [
-                button [OnClick (fun _ -> dispatch Reset)] [str "Reset"]
+                str "Pour"
+                strong [] [str <| sprintf " %ig" (waterPerCycle brewingState)]
+                str " water to a total of "
+                strong [] [str <| sprintf " %ig." (waterLimitForCycle brewingState)]
             ]
         ]
         div [ClassName "states"]
