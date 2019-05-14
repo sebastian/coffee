@@ -2,6 +2,7 @@
 @import 'skeleton';
 
 $margin: 30px;
+$small-margin: 20px;
 
 body {
     background-color: black;
@@ -46,40 +47,83 @@ button {
     }
 }
 
+
+@media only screen and (orientation : portrait) {
+    .brewing {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        grid-template-areas:
+            "info-box"
+            "states";
+
+        .info-box {
+            grid-template-areas:
+                "time water";
+            grid-template-rows: 1fr;
+            grid-template-columns: 2fr 3fr;
+        }
+        .time {
+            border-right: 2px solid white;
+            padding-right: $margin;
+            align-self: center;
+            justify-self: end;
+        }
+        .water {
+            padding-left: $margin;
+            align-self: center;
+            justify-self: start;
+        }
+    }
+}
+@media only screen and (orientation : landscape) {
+    .brewing {
+        grid-template-columns: 1fr 2fr;
+        grid-template-rows: 1fr;
+        grid-template-areas: "info-box states";
+        text-align: center;
+
+        .info-box {
+            grid-template-areas:
+                "time"
+                "water";
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 1fr;
+        }
+        .time {
+            border-bottom: 2px solid white;
+            align-self: end;
+            justify-self: stretch;
+        }
+        .water {
+            height: 100%;
+            width: 100%;
+            padding-top: $small-margin;
+            align-self: start;
+            justify-self: center;
+        }
+    }
+}
+
 .brewing {
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
     width: 100%;
-
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
-        "info-box"
-        "states";
 
     .info-box {
         grid-area: "info-box";
         display: grid;
-        grid-template-areas:
-            "time water";
-        grid-template-rows: 1fr;
-        grid-template-columns: 1fr 2fr;
-
         padding: $margin;
-        align-items: center;
+        align-content: center;
 
         .time {
             grid-area: time;
-            border-right: 2px solid white;
             font-size: 2em;
-            padding-right: $margin;
         }
         .water {
             grid-area: water;
-            padding-left: $margin;
             font-size: 0.5em;
         }
     }
