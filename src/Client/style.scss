@@ -63,29 +63,24 @@ button {
     .info-box {
         grid-area: "info-box";
         display: grid;
+        grid-template-areas:
+            "time water";
+        grid-template-rows: 1fr;
         grid-template-columns: 1fr 2fr;
-        grid-template-rows: auto auto;
+
         padding: $margin;
         align-items: center;
 
         .time {
-            grid-column: 1;
-            grid-row: 1;
+            grid-area: time;
             border-right: 2px solid white;
             font-size: 2em;
             padding-right: $margin;
         }
         .water {
-            grid-column: 2;
-            grid-row: 1;
+            grid-area: water;
             padding-left: $margin;
             font-size: 0.5em;
-        }
-        .reset-button {
-            button {
-                grid-row: 1;
-                grid-column: 1;
-            }
         }
     }
 
