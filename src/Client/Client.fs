@@ -33,7 +33,7 @@ let init () : Model * Cmd<Msg> =
 let ticksPerSecond = 20
 let secondsToTicks seconds = seconds * ticksPerSecond
 
-let numCycles = 6
+let numCycles = 5
 
 let currentCycle brewingModel = brewingModel.CurrentTick / brewingModel.TicksPerCycle + 1
 
