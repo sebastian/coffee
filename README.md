@@ -5,3 +5,7 @@ A video explaining the brewing process can be found [here](https://www.youtube.c
 
 The "app" is designed to be used on your smartphone.
 Visit [https://coffee.probsteide.com](https://coffee.probsteide.com) and add it to your homescreen.
+
+It looks something like this when being used. Here with 15g of coffee beans:
+
+![img](screenshot.jpeg)
