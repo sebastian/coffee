@@ -8,7 +8,6 @@ let publicPath = Path.GetFullPath "../Client/public"
 
 let port = "PORT" |> tryGetEnv |> Option.map uint16 |> Option.defaultValue 5000us
 
-
 let webApp = router {
     get "/about" (text "Made by Sebastian")
 }
