@@ -92,11 +92,12 @@ let update (msg : Msg) (currentModel : Model) : Model * Cmd<Msg> =
 let renderWelcome dispatch =
     div [ClassName "start"] [
         h1 [] [str "What is this?"]
-        p [] [str (
+        p [] [
+            str (
                 "This is a coffee timer for the \"4:6 method\" invented by Tetsu Kasuya. " +
-                "It times 5 pours of 45 seconds each."
-            )]
-        a [Href "https://www.youtube.com/watch?v=wmCW8xSWGZY"] [str "This video explains the process"]
+                "It times 5 pours of 45 seconds each. ")
+            a [Href "https://www.youtube.com/watch?v=wmCW8xSWGZY"; Target "_blank"] [str "This video explains the process"]
+        ]
 
         h1 [] [str "Start brewing?"]
         p [] [str "How much coffee are you using?"]
